@@ -43,10 +43,10 @@ RUN /usr/sbin/userdel www-data && \
 COPY ssl/cert.key /usr/local/nginx-1.12.2/conf/cert.key
 COPY ssl/cert.pem /usr/local/nginx-1.12.2/conf/cert.pem
 RUN { \
-    echo 'user  nobody;'; \
+    echo 'user www-data;'; \
     echo 'worker_processes  1;'; \
-    echo 'error_log  logs/error.log;'; \
-    echo 'pid        logs/nginx.pid;'; \
+    echo 'error_log logs/error.log;'; \
+    echo 'pid logs/nginx.pid;'; \
     echo 'events {'; \
     echo '    worker_connections  1024;'; \
     echo '}'; \
@@ -67,13 +67,13 @@ RUN { \
     echo '    listen 80;'; \
     echo '    server_name localhost;'; \
     echo '    listen 443 ssl;'; \
-    echo '    ssl on;'; \
     echo '    ssl_certificate cert.pem;'; \
     echo '    ssl_certificate_key cert.key;'; \
     echo '    charset utf-8;'; \
     echo '    access_log  logs/default.access.log  main;'; \
     echo '    error_log  logs/default.error.log;'; \
     echo '    root /data/webroot;'; \
+    echo '    autoindex on;'; \
     echo '    location / {'; \
     echo '            index index.html index.php;'; \
     echo '            try_files $uri $uri/ /index.php?$args;'; \
