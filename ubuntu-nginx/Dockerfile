@@ -6,8 +6,8 @@ RUN set -e && \
     /usr/sbin/userdel www-data && \
     /usr/sbin/groupadd -g 501 www-data && \
     /usr/sbin/groupadd -g 510 php-fpm && \
-    /usr/sbin/useradd -d /data/webroot -u 501 -g 501 www-data && \
-    /usr/sbin/useradd -d /data/webroot/runtimes -u 510 -g 510 php-fpm && \
+    /usr/sbin/useradd -m -d /data/webroot -u 501 -g 501 www-data && \
+    /usr/sbin/useradd -m -d /data/webroot/runtimes -u 510 -g 510 php-fpm && \
     su www-data -c "echo '<?php phpinfo();?>' > /data/webroot/phpinfo.php" && \
 
     # download
@@ -101,8 +101,8 @@ VOLUME ["/data/webroot", "/data/webroot/runtimes", "/data/log"]
 
 RUN { \
     echo '[program:nginx]'; \
-    echo 'command=/usr/local/nginx-1.12.2/sbin/nginx';
+    echo 'command=/usr/local/nginx-1.12.2/sbin/nginx'; \
 } > /etc/supervisord.d/nginx.ini
 
-EXPOSE [80, 443]
+EXPOSE 80 443
 

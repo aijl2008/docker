@@ -17,7 +17,7 @@ docker build \
 # run
 ```
 docker run -it docker.artron.net:5000/ubuntu /bin/bash
-mkdir -p /data/container/default/logs
+mkdir -p /data/container/default/logs/supervisor
 docker run -d --name=ubuntu \
     -v /data/container/default/logs:/data/logs \
     -p 127.0.0.1:9999:9999 \
@@ -30,7 +30,8 @@ ssh root@127.0.0.1 -p 4501
 ```
 
 ```
-mkdir -p /data/container/default/logs
+mkdir -p /data/container/default/logs/nginx
+mkdir -p /data/container/default/logs/supervisor
 docker run -d --name=nginx \
     -v /data/container/default/logs:/data/logs \
     -v /data/container/default/webroot:/data/webroot \

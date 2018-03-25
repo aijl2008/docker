@@ -137,5 +137,5 @@ RUN { \
 
 RUN { \
     echo '[program:fpm-7]'; \
-    echo 'command=/usr/local/php-7.1.13/sbin/php-fpm -F';
+    echo 'command=/usr/local/php-7.1.13/sbin/php-fpm -F'; \
 } > /etc/supervisord.d/fpm-7.ini
