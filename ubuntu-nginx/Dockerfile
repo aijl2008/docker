@@ -1,13 +1,21 @@
-FROM docker.artron.net:5000/ubuntu:16.04
+FROM docker.artron.net:5000/ubuntu
 MAINTAINER Jerry Ai <awz@awz.cn>
 
-RUN /usr/sbin/userdel www-data && \
+RUN set -e && \
+    # create user and group
+    /usr/sbin/userdel www-data && \
     /usr/sbin/groupadd -g 501 www-data && \
+    /usr/sbin/groupadd -g 510 php-fpm && \
     /usr/sbin/useradd -d /data/webroot -u 501 -g 501 www-data && \
-    apt update && apt install -y libpcre3-dev libssl-dev pkg-config && \
-    wget http://nginx.org/download/nginx-1.12.2.tar.gz && \
+    /usr/sbin/useradd -d /data/webroot/runtimes -u 510 -g 510 php-fpm && \
+    su www-data -c "echo '<?php phpinfo();?>' > /data/webroot/phpinfo.php" && \
+
+    # download
+    mkdir -p /data/src && \
+    cd /data/src && wget http://nginx.org/download/nginx-1.12.2.tar.gz && \
     tar -zxvf nginx-1.12.2.tar.gz && \
     cd nginx-1.12.2 && \
+    # install
     ./configure \
         --prefix=/usr/local/nginx-1.12.2 \
         --error-log-path=/var/log/nginx/error.log \
@@ -39,13 +47,15 @@ RUN /usr/sbin/userdel www-data && \
         --with-stream_ssl_module \
         --with-stream_ssl_preread_module && \
     make && make install && \
-    mkdir /usr/local/nginx-1.12.2/conf/vhost
+    mkdir -p /usr/local/nginx-1.12.2/conf/vhost
+# create ssl ca
 COPY ssl/cert.key /usr/local/nginx-1.12.2/conf/cert.key
 COPY ssl/cert.pem /usr/local/nginx-1.12.2/conf/cert.pem
+# create nginx.conf
 RUN { \
     echo 'user www-data;'; \
     echo 'worker_processes  1;'; \
-    echo 'error_log logs/error.log;'; \
+    echo 'error_log /data/logs/error.log;'; \
     echo 'pid logs/nginx.pid;'; \
     echo 'events {'; \
     echo '    worker_connections  1024;'; \
@@ -54,14 +64,14 @@ RUN { \
     echo '    include mime.types;'; \
     echo '    default_type  application/octet-stream;'; \
     echo '    log_format  main  $host $remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" "$http_x_forwarded_for";'; \
-    echo '    access_log  logs/access.log  main;'; \
+    echo '    access_log  /data/logs/access.log  main;'; \
     echo '    sendfile        on;'; \
     echo '    keepalive_timeout  65;'; \
     echo '    gzip  on;'; \
     echo '    include vhost/*.conf;'; \
     echo '}'; \
 } > /usr/local/nginx-1.12.2/conf/nginx.conf
-
+# create vhost/default.conf
 RUN { \
     echo 'server {'; \
     echo '    listen 80;'; \
@@ -87,9 +97,12 @@ RUN { \
     echo '}'; \
 } > /usr/local/nginx-1.12.2/conf/vhost/default.conf
 
+VOLUME ["/data/webroot", "/data/webroot/runtimes", "/data/log"]
 
-WORKDIR /data/webroot
+RUN { \
+    echo '[program:nginx]'; \
+    echo 'command=/usr/local/nginx-1.12.2/sbin/nginx';
+} > /etc/supervisord.d/nginx.ini
 
-CMD ["/usr/local/nginx-1.12.2/sbin/nginx", "-g", "daemon off;"]
-
+EXPOSE [80, 443]
 
