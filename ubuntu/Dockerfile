@@ -4,7 +4,7 @@ MAINTAINER Jerry Ai <awz@awz.cn>
 RUN set -e && \
     sed -i "s/archive.ubuntu.com/cn.archive.ubuntu.com/g" /etc/apt/sources.list && \
     apt update && \
-    apt install -y vim wget  && \
+    apt install -y vim wget tree curl && \
     apt install -y gcc autoconf pkg-config && \
     apt install -y libxml2-dev \
                    libpcre3-dev \

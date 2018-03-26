@@ -12,38 +12,37 @@ RUN set -e && \
       --enable-fpm \
       --with-fpm-user=php-fpm \
       --with-fpm-group=php-fpm \
-      --enable-sigchild \
-      --disable-short-tags \
-      --with-libxml-dir \
-      --with-openssl \
-      --with-pcre-regex \
-      --with-zlib \
-      --enable-calendar \
-      --with-curl \
-      --enable-exif \
-      --with-gd \
-      --enable-gd-native-ttf \
-      --with-gettext \
-      --with-mhash \
-      --enable-intl  \
-      --enable-mbstring \
-      --with-mcrypt \
-      --with-mysqli \
-      --enable-pcntl \
-      --with-pdo-mysql \
-      --with-readline \
-      --enable-shmop  \
-      --enable-soap  \
-      --enable-sockets \
-      --enable-sysvmsg \
-      --enable-sysvsem \
-      --enable-sysvshm \
-      --with-tidy \
-      --with-xmlrpc \
-      --with-xsl=DIR \
-      --enable-zip \
-      --enable-mysqlnd && \
-    make && make install && \
+#      --enable-sigchild \
+#      --disable-short-tags \
+#      --with-libxml-dir \
+#      --with-openssl \
+#      --with-pcre-regex \
+#      --with-zlib \
+#      --enable-calendar \
+#      --with-curl \
+#      --enable-exif \
+#      --with-gd \
+#      --enable-gd-native-ttf \
+#      --with-gettext \
+#      --with-mhash \
+#      --enable-intl  \
+#      --enable-mbstring \
+#      --with-mcrypt \
+#      --with-mysqli \
+#      --enable-pcntl \
+#      --with-pdo-mysql \
+#      --with-readline \
+#      --enable-shmop  \
+#      --enable-soap  \
+#      --enable-sockets \
+#      --enable-sysvmsg \
+#      --enable-sysvsem \
+#      --enable-sysvshm \
+#      --with-tidy \
+#      --with-xmlrpc \
+#      --with-xsl=DIR \
+#      --enable-zip \
+      --enable-mysqlnd && make && make install && \
 
     # setting php.ini
     cp php.ini-production /usr/local/php-7.1.13/php.ini && \

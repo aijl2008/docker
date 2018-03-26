@@ -101,7 +101,7 @@ VOLUME ["/data/webroot", "/data/webroot/runtimes", "/data/log"]
 
 RUN { \
     echo '[program:nginx]'; \
-    echo 'command=/usr/local/nginx-1.12.2/sbin/nginx'; \
+    echo 'command=/usr/local/nginx-1.12.2/sbin/nginx -c /usr/local/nginx-1.12.2/conf/nginx.conf'; \
 } > /etc/supervisord.d/nginx.ini
 
 EXPOSE 80 443
