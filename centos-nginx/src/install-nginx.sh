@@ -87,4 +87,4 @@ echo 'server { \
 
 echo '[program:nginx] \
 command=/usr/local/nginx-1.12.2/sbin/nginx -g "daemon off;" -c /usr/local/nginx-1.12.2/conf/nginx.conf \
-' > /etc/supervisor/supervisord.d/nginx.ini
+' > /etc/supervisord.d/nginx.ini
