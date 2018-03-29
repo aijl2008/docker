@@ -2,24 +2,21 @@ FROM docker.artron.net:5000/ubuntu
 MAINTAINER Jerry Ai <awz@awz.cn>
 
 RUN set -e && \
-    # create user and group
     /usr/sbin/userdel www-data && \
     /usr/sbin/groupadd -g 501 www-data && \
-    /usr/sbin/groupadd -g 510 php-fpm && \
-    /usr/sbin/useradd -m -d /data/webroot -u 501 -g 501 www-data && \
-    /usr/sbin/useradd -m -d /data/webroot/runtimes -u 510 -g 510 php-fpm && \
+    /usr/sbin/useradd -m -u 501 -g 501 www-data && \
+    mkdir -p /data/webroot && chown www-data:www-data /data/webroot && \
+    mkdir -p /data/logs/nginx && \
     su www-data -c "echo '<?php phpinfo();?>' > /data/webroot/phpinfo.php" && \
 
-    # download
     mkdir -p /data/src && \
     cd /data/src && wget http://nginx.org/download/nginx-1.12.2.tar.gz && \
     tar -zxvf nginx-1.12.2.tar.gz && \
     cd nginx-1.12.2 && \
-    # install
     ./configure \
         --prefix=/usr/local/nginx-1.12.2 \
-        --error-log-path=/var/log/nginx/error.log \
-        --http-log-path=/var/log/nginx/access.log \
+        --error-log-path=/data/logs/nginx/error.log \
+        --http-log-path=/data/logs/nginx/access.log \
         --user=www-data \
         --group=www-data \
         --with-compat \
@@ -48,15 +45,17 @@ RUN set -e && \
         --with-stream_ssl_preread_module && \
     make && make install && \
     mkdir -p /usr/local/nginx-1.12.2/conf/vhost
+
 # create ssl ca
 COPY ssl/cert.key /usr/local/nginx-1.12.2/conf/cert.key
 COPY ssl/cert.pem /usr/local/nginx-1.12.2/conf/cert.pem
+
 # create nginx.conf
 RUN { \
     echo 'user www-data;'; \
     echo 'worker_processes  1;'; \
     echo 'error_log /data/logs/error.log;'; \
-    echo 'pid logs/nginx.pid;'; \
+    echo 'pid /data/logs/nginx.pid;'; \
     echo 'events {'; \
     echo '    worker_connections  1024;'; \
     echo '}'; \
@@ -80,8 +79,8 @@ RUN { \
     echo '    ssl_certificate cert.pem;'; \
     echo '    ssl_certificate_key cert.key;'; \
     echo '    charset utf-8;'; \
-    echo '    access_log  logs/default.access.log  main;'; \
-    echo '    error_log  logs/default.error.log;'; \
+    echo '    access_log  /data/logs/default.access.log  main;'; \
+    echo '    error_log  /data/logs/default.error.log;'; \
     echo '    root /data/webroot;'; \
     echo '    autoindex on;'; \
     echo '    location / {'; \
@@ -97,12 +96,11 @@ RUN { \
     echo '}'; \
 } > /usr/local/nginx-1.12.2/conf/vhost/default.conf
 
-VOLUME ["/data/webroot", "/data/webroot/runtimes", "/data/log"]
+VOLUME ["/data/webroot", "/data/webroot/runtimes", "/data/logs"]
 
 RUN { \
     echo '[program:nginx]'; \
-    echo 'command=/usr/local/nginx-1.12.2/sbin/nginx -c /usr/local/nginx-1.12.2/conf/nginx.conf'; \
-} > /etc/supervisord.d/nginx.ini
+    echo 'command=/usr/local/nginx-1.12.2/sbin/nginx -g "daemon off;" -c /usr/local/nginx-1.12.2/conf/nginx.conf'; \
+} > /etc/supervisor/conf.d/nginx.ini
 
 EXPOSE 80 443
-

@@ -16,19 +16,12 @@ RUN set -e && \
                    libreadline-dev \
                    libtidy-dev \
                    libxslt-dev && \
-    # install supervisor
-    mkdir -p /data/logs/supervisor && \
-    mkdir -p /etc/supervisord.d && \
+    
     apt install -y supervisor && \
-    echo_supervisord_conf | \
-        sed "s/;\[inet_http_server\]/[inet_http_server]/" | \
-        sed "s/;port=127.0.0.1:9001/port=0.0.0.0:9999/" | \
-        sed "s/;\[include\]/[include]/" | \
-        sed "s/\/tmp\/supervisord.log/\/data\/logs\/supervisor\/supervisord.log/" | \
-        sed "s/;files = relative\/directory/files = \/etc\/supervisord.d/" \
-        > /etc/supervisord.conf && \
+    sed -i "s/\/var\/log/\/data\/logs/" /etc/supervisor/supervisord.conf  && \
+    echo "[inet_http_server]" >> /etc/supervisor/supervisord.conf  && \ 
+    echo "port=0.0.0.0:9999" >> /etc/supervisor/supervisord.conf  && \
 
-    # install sshd
     apt install -y openssh-server && \
     mkdir -p /var/run/sshd && \
     echo 'root:centos' | chpasswd && \
@@ -37,15 +30,12 @@ RUN set -e && \
     sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd  && \
     echo "export VISIBLE=now" >> /etc/profile && \
 
-    # install vcs
     apt install -y git subversion && \
 
-    # install locale
     apt install -y language-pack-zh-hans locales tzdata && \
     update-locale LC_ALL=zh_CN.UTF-8 LANG=zh_CN.UTF-8 && \
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
 
-    # clear apt cache
     rm -rf /var/lib/apt/lists/*
 
 ENV LANG zh_CN.UTF-8
@@ -54,10 +44,12 @@ ENV NOTVISIBLE "in users profile"
 RUN { \
     echo '[program:sshd]'; \
     echo 'command=/usr/sbin/sshd -D'; \
-} > /etc/supervisord.d/sshd.ini
+} > /etc/supervisor/conf.d/sshd.ini
 
 EXPOSE 9999 22
 
-CMD ["supervisord","-n","-c","/etc/supervisord.conf"]
+ADD entrypoint.sh entrypoint.sh
+WORKDIR /data/logs/supervisor/
+CMD ["supervisord","-n","-c","/etc/supervisor/supervisord.conf"]
 
 

@@ -46,13 +46,13 @@ RUN set -e && \
     make && make install && \
 
     # setting php.ini
-    cp php.ini-production /usr/local/php-5.4.43/php.ini && \
-    sed -i "s/display_errors = Off/display_errors = On/" /usr/local/php-5.4.43/php.ini && \
-    sed -i "s/memory_limit = 128M/memory_limit = 1024M/" /usr/local/php-5.4.43/php.ini && \
-    sed -i "s/short_open_tag = Off/short_open_tag = On/" /usr/local/php-5.4.43/php.ini && \
-    sed -i "s/;date.timezone =/date.timezone =Asia\/Shanghai/" /usr/local/php-5.4.43/php.ini && \
-    sed -i "s/error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/error_reporting = E_ALL/" /usr/local/php-5.4.43/php.ini && \
-    sed -i "s/;error_log = php_errors.log/error_log = \/data\/logs\/php\/php-5.4.43\/php_errors.log/" /usr/local/php-5.4.43/php.ini && \
+    cp php.ini-production /usr/local/php-5.4.43/lib/php.ini && \
+    sed -i "s/display_errors = Off/display_errors = On/" /usr/local/php-5.4.43/lib/php.ini && \
+    sed -i "s/memory_limit = 128M/memory_limit = 1024M/" /usr/local/php-5.4.43/lib/php.ini && \
+    sed -i "s/short_open_tag = Off/short_open_tag = On/" /usr/local/php-5.4.43/lib/php.ini && \
+    sed -i "s/;date.timezone =/date.timezone =Asia\/Shanghai/" /usr/local/php-5.4.43/lib/php.ini && \
+    sed -i "s/error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/error_reporting = E_ALL/" /usr/local/php-5.4.43/lib/php.ini && \
+    sed -i "s/;error_log = php_errors.log/error_log = \/data\/logs\/php\/php-5.4.43\/php_errors.log/" /usr/local/php-5.4.43/lib/php.ini && \
 
     mkdir -p /usr/local/php-5.4.43/etc/ && \
     mkdir -p /usr/local/php-5.4.43/etc/php-fpm.d && \
@@ -64,7 +64,7 @@ RUN set -e && \
     /usr/local/php-5.4.43/bin/phpize && \
     ./configure --with-php-config=/usr/local/php-5.4.43/bin/php-config && \
     make && \ make install && \
-    echo "extension=mongodb.so" >> /data/etc/php/php-5.4.43/php.ini && \
+    echo "extension=mongodb.so" >> /data/etc/php/php-5.4.43/lib/php.ini && \
 
     # install redis
     cd /data/src && /usr/local/php-5.4.43/bin/pecl download redis-3.1.6 && \
@@ -73,12 +73,12 @@ RUN set -e && \
     /usr/local/php-5.4.43/bin/phpize && \
     ./configure --with-php-config=/usr/local/php-5.4.43/bin/php-config && \
     make && make install && \
-    echo "extension=redis.so" >> /data/etc/php/php-5.4.43/php.ini && \
+    echo "extension=redis.so" >> /usr/local/php-5.4.43/lib/php.ini && \
 
 # create php-fpm.conf
 RUN { \
     echo '[global]'; \
-    echo 'error_log = /data/log/php/php-5.4.43/fpm_errors.log'; \
+    echo 'error_log = /data/logs/php/php-5.4.43/fpm_errors.log'; \
     echo 'process.max = 5'; \
     echo 'daemonize = no'; \
     echo 'include=php-fpm.d/*.conf'; \
@@ -95,8 +95,8 @@ RUN { \
     echo 'pm.start_servers = 2'; \
     echo 'pm.min_spare_servers = 1'; \
     echo 'pm.max_spare_servers = 3'; \
-    echo 'access.log = /data/log/php/php-5.4.43/$pool.access.log'; \
-    echo 'slowlog = /data/log/php/php-5.4.43/$pool.log.slow'; \
+    echo 'access.log = /data/logs/php/php-5.4.43/$pool.access.log'; \
+    echo 'slowlog = /data/logs/php/php-5.4.43/$pool.log.slow'; \
     echo 'request_slowlog_timeout = 1'; \
 } > /usr/local/php-5.4.43/etc/php-fpm.d/pool-1.conf
 RUN { \
@@ -109,12 +109,12 @@ RUN { \
     echo 'pm.start_servers = 2'; \
     echo 'pm.min_spare_servers = 1'; \
     echo 'pm.max_spare_servers = 3'; \
-    echo 'access.log = /data/log/php/php-5.4.43/$pool.access.log'; \
-    echo 'slowlog = /data/log/php/php-5.4.43/$pool.log.slow'; \
+    echo 'access.log = /data/logs/php/php-5.4.43/$pool.access.log'; \
+    echo 'slowlog = /data/logs/php/php-5.4.43/$pool.log.slow'; \
     echo 'request_slowlog_timeout = 1'; \
 } > /usr/local/php-5.4.43/etc/php-fpm.d/pool-2.conf
 
 RUN { \
     echo '[program:fpm-7]'; \
     echo 'command=/usr/local/php-5.4.43/sbin/php-fpm -F';
-} > /etc/supervisord.d/fpm-7.ini
+} > /etc/supervisor/conf.d/fpm-7.ini
