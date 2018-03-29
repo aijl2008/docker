@@ -12,3 +12,7 @@ apt install -y libxml2-dev \
                libreadline-dev \
                libtidy-dev \
                libxslt-dev
+apt install -y language-pack-zh-hans locales tzdata
+update-locale LC_ALL=zh_CN.UTF-8 LANG=zh_CN.UTF-8
+ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+ 
