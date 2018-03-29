@@ -1,3 +1,5 @@
+#!/bin/bash
+set -e 
 apt install -y openssh-server
 mkdir -p /var/run/sshd
 echo 'root:centos' | chpasswd
