@@ -11,5 +11,5 @@ echo "export VISIBLE=now" >> /etc/profile
 echo '
 [program:sshd]
 command=/usr/sbin/sshd -D
-' > /etc/supervisor/conf.d/sshd.ini
+' > /etc/supervisor/conf.d/sshd.conf
  

@@ -7,5 +7,4 @@ echo 'root:centos' |chpasswd
 echo '
 [program:sshd]
 command=/usr/sbin/sshd -D
-' > /etc/supervisor/supervisor.d/sshd.ini
- 
+' > /etc/supervisord.d/sshd.ini 
