@@ -1,3 +1,4 @@
+#!/bin/bash
 set -e
 
 /usr/sbin/groupadd -f -g 510 php-fpm
