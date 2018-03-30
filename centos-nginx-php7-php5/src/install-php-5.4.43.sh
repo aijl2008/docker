@@ -51,58 +51,17 @@ cd php-5.4.43
 make
 make install
 
+ln -s /usr/local/php-5.4.43/bin/* /usr/local/bin
+
 cp php.ini-production /usr/local/php-5.4.43/lib/php.ini
 sed -i "s/display_errors = Off/display_errors = On/" /usr/local/php-5.4.43/lib/php.ini
 sed -i "s/memory_limit = 128M/memory_limit = 1024M/" /usr/local/php-5.4.43/lib/php.ini
 sed -i "s/short_open_tag = Off/short_open_tag = On/" /usr/local/php-5.4.43/lib/php.ini
 sed -i "s/;date.timezone =/date.timezone =Asia\/Shanghai/" /usr/local/php-5.4.43/lib/php.ini
 sed -i "s/error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/error_reporting = E_ALL/" /usr/local/php-5.4.43/lib/php.ini
-sed -i "s/;error_log = php_errors.log/error_log = \/data\/logs\/php\/php-5.4.43\/php_errors.log/" /usr/local/php-7.1.13/lib/php.ini
+sed -i "s/;error_log = php_errors.log/error_log = \/data\/logs\/php\/php-5.4.43\/php_errors.log/" /usr/local/php-5.4.43/lib/php.ini
 
 mkdir -p /data/logs/php/php-5.4.43
-
-cd /data/src 
-/usr/local/php-5.4.43/bin/pecl download mongodb-1.2.11
-tar -zxvf mongodb-1.2.11.tgz
-cd mongodb-1.2.11
-/usr/local/php-5.4.43/bin/phpize
-./configure \
-  --with-php-config=/usr/local/php-5.4.43/bin/php-config
-make 
-make install
-echo "extension=mongodb.so" >> /usr/local/php-5.4.43/lib/php.ini
-
-cd /data/src 
-/usr/local/php-5.4.43/bin/pecl download redis-3.1.6
-tar -zxvf redis-3.1.6.tgz
-cd redis-3.1.6
-/usr/local/php-5.4.43/bin/phpize
-./configure \
-  --with-php-config=/usr/local/php-5.4.43/bin/php-config
-make 
-make install
-echo "extension=redis.so" >> /data/etc/php/php-5.4.43/lib/php.ini
-
-cd /data/src
-/usr/local/php-5.4.43/bin/pecl download ssh2-1.1.2
-tar -zxvf ssh2-1.1.2.tgz
-cd ssh2-1.1.2
-/usr/local/php-5.4.43/bin/phpize
-./configure \
-  --with-php-config=/usr/local/php-5.4.43/bin/php-config
-make 
-make install
-echo "extension=ssh2.so" >> /data/etc/php/php-5.4.43/lib/php.ini && \
-ln -s /usr/local/php-5.4.43/bin/* /usr/local/bin && \
-
-cd /data/src
-curl -sS https://getcomposer.org/installer | /usr/local/php-5.4.43/bin/php
-mv composer.phar /usr/local/bin/composer
-composer global config -g repo.packagist composer https://packagist.phpcomposer.com
-composer global config secure-http false
-su php-fpm -c "composer global config -g repo.packagist composer https://packagist.phpcomposer.com"
-su php-fpm -c "composer global config secure-http false"
-
 
 echo '
 [global]
@@ -144,5 +103,5 @@ request_slowlog_timeout = 1
 
 echo '
 [program:fpm-7]
-command=/usr/local/php-5.4.43/sbin/php-fpm -F -y /usr/local/php-7.1.13/etc/php-fpm.conf
+command=/usr/local/php-5.4.43/sbin/php-fpm -F -y /usr/local/php-5.4.43/etc/php-fpm.conf
 ' > /etc/supervisor/conf.d/fpm-7.conf

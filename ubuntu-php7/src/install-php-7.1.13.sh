@@ -50,6 +50,8 @@ cd php-7.1.13
 make
 make install
 
+ln -s /usr/local/php-7.1.13/bin/* /usr/local/bin
+
 cp php.ini-production /usr/local/php-7.1.13/lib/php.ini
 sed -i "s/display_errors = Off/display_errors = On/" /usr/local/php-7.1.13/lib/php.ini
 sed -i "s/memory_limit = 128M/memory_limit = 1024M/" /usr/local/php-7.1.13/lib/php.ini
@@ -59,49 +61,6 @@ sed -i "s/error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/error_reporting = 
 sed -i "s/;error_log = php_errors.log/error_log = \/data\/logs\/php\/php-7.1.13\/php_errors.log/" /usr/local/php-7.1.13/lib/php.ini
 
 mkdir -p /data/logs/php/php-7.1.13
-
-cd /data/src 
-/usr/local/php-7.1.13/bin/pecl download mongodb-1.4.2
-tar -zxvf mongodb-1.4.2.tgz
-cd mongodb-1.4.2
-/usr/local/php-7.1.13/bin/phpize
-./configure \
-  --with-php-config=/usr/local/php-7.1.13/bin/php-config
-make 
-make install
-echo "extension=mongodb.so" >> /usr/local/php-7.1.13/lib/php.ini
-
-cd /data/src 
-/usr/local/php-7.1.13/bin/pecl download redis-3.1.6
-tar -zxvf redis-3.1.6.tgz
-cd redis-3.1.6
-/usr/local/php-7.1.13/bin/phpize
-./configure \
-  --with-php-config=/usr/local/php-7.1.13/bin/php-config
-make 
-make install
-echo "extension=redis.so" >> /usr/local/php-7.1.13/lib/php.ini
-
-cd /data/src
-/usr/local/php-7.1.13/bin/pecl download ssh2-1.1.2
-tar -zxvf ssh2-1.1.2.tgz
-cd ssh2-1.1.2
-/usr/local/php-7.1.13/bin/phpize
-./configure \
-  --with-php-config=/usr/local/php-7.1.13/bin/php-config
-make 
-make install
-echo "extension=ssh2.so" >> /usr/local/php-7.1.13/lib/php.ini && \
-ln -s /usr/local/php-7.1.13/bin/* /usr/local/bin && \
-
-cd /data/src
-curl -sS https://getcomposer.org/installer | /usr/local/php-7.1.13/bin/php
-mv composer.phar /usr/local/bin/composer
-composer global config -g repo.packagist composer https://packagist.phpcomposer.com
-composer global config secure-http false
-su php-fpm -c "composer global config -g repo.packagist composer https://packagist.phpcomposer.com"
-su php-fpm -c "composer global config secure-http false"
-
 
 echo '
 [global]

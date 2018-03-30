@@ -1,0 +1,11 @@
+FROM docker.artron.net:5000/ubuntu
+
+COPY src /data/src
+RUN sh /data/src/install-php-7.1.13.sh
+RUN sh /data/src/install-php-redis-3.1.6.sh
+RUN sh /data/src/install-php-mongodb-1.4.2.sh
+RUN sh /data/src/install-php-composer.sh
+RUN sh /data/src/install-php-ssh2-1.1.2.sh
+
+
+
