@@ -11,36 +11,58 @@ docker build \
     ubuntu-nginx-php-7
 docker build \
     -t docker.artron.net:5000/ubuntu-nginx-php-5 \
-    ubuntu-nginx-php-5          
+    ubuntu-nginx-php-5 
+docker build \
+    -t docker.artron.net:5000/centos \
+    centos
+docker build \
+    -t docker.artron.net:5000/centos-nginx \
+    centos-nginx   
+docker build \
+    -t docker.artron.net:5000/centos-nginx-php-7 \
+    centos-nginx-php-7
+docker build \
+    -t docker.artron.net:5000/centos-nginx-php-5 \
+    centos-nginx-php-5    
 ```
 
 # run
 ```
-docker run -it docker.artron.net:5000/ubuntu /bin/bash
-mkdir -p /data/container/default/logs/supervisor
 docker run -d --name=ubuntu \
-    -v /data/container/default/logs:/data/logs \
     -p 127.0.0.1:9999:9999 \
     -p 127.0.0.1:4501:22 \
     docker.artron.net:5000/ubuntu 
-docker inspect ubuntu
-docker logs ubuntu
-docker exec -it ubuntu
+docker run -d --name=ubuntu-nginx \
+    -p 127.0.0.1:9999:9999 \
+    -p 127.0.0.1:4501:22 \
+    -p 127.0.0.1:80:80 \
+    -p 127.0.0.1:443:443 \
+    docker.artron.net:5000/ubuntu-nginx 
+docker run -d --name=ubuntu-nginx-php \
+    -p 127.0.0.1:9999:9999 \
+    -p 127.0.0.1:4501:22 \
+    -p 127.0.0.1:80:80 \
+    -p 127.0.0.1:443:443 \
+    docker.artron.net:5000/ubuntu-nginx-php    
 ssh root@127.0.0.1 -p 4501
 ```
 
 ```
-mkdir -p /data/container/default/logs/nginx
-mkdir -p /data/container/default/logs/supervisor
-docker run -d --name=nginx \
-    -v /data/container/default/logs:/data/logs \
-    -v /data/container/default/webroot:/data/webroot \
+docker run -d --name=centos \
     -p 127.0.0.1:9999:9999 \
     -p 127.0.0.1:4501:22 \
-    -p 127.0.0.1:443:443 \
+    docker.artron.net:5000/centos 
+docker run -d --name=centos-nginx \
+    -p 127.0.0.1:9999:9999 \
+    -p 127.0.0.1:4501:22 \
     -p 127.0.0.1:80:80 \
-    docker.artron.net:5000/ubuntu 
-docker inspect nginx
-docker exec -it nginx
+    -p 127.0.0.1:443:443 \
+    docker.artron.net:5000/centos-nginx 
+docker run -d --name=centos-nginx-php \
+    -p 127.0.0.1:9999:9999 \
+    -p 127.0.0.1:4501:22 \
+    -p 127.0.0.1:80:80 \
+    -p 127.0.0.1:443:443 \
+    docker.artron.net:5000/centos-nginx-php    
 ssh root@127.0.0.1 -p 4501
 ```
