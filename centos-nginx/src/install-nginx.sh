@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-groupadd -g 501 www-data
+groupadd -f -g 501 www-data
 useradd -m -u 501 -g 501 www-data
 mkdir -p /data/webroot && chown www-data:www-data /data/webroot
 mkdir -p /data/logs/nginx
@@ -39,52 +39,52 @@ cd nginx-1.12.2
     --with-stream \
     --with-stream_realip_module \
     --with-stream_ssl_module \
-    --with-stream_ssl_preread_module \
+    --with-stream_ssl_preread_module
 make && make install
 mkdir -p /usr/local/nginx-1.12.2/conf/vhost
 
 
-echo 'user www-data; \
-worker_processes  1; \
-error_log /data/logs/error.log; \
-pid /data/logs/nginx.pid; \
-events { \
-    worker_connections  1024; \
-} \
-http { \
-    include mime.types; \
-    default_type  application/octet-stream; \
-    log_format  main  $host $remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" "$http_x_forwarded_for"; \
-    access_log  /data/logs/access.log  main; \
-    sendfile        on; \
-    keepalive_timeout  65; \
-    gzip  on; \
-    include vhost/*.conf; \
+echo 'user www-data;
+worker_processes  1;
+error_log /data/logs/error.log;
+pid /data/logs/nginx.pid;
+events {
+    worker_connections  1024;
+}
+http {
+    include mime.types;
+    default_type  application/octet-stream;
+    log_format  main  $host $remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" "$http_x_forwarded_for";
+    access_log  /data/logs/access.log  main;
+    sendfile        on;
+    keepalive_timeout  65;
+    gzip  on;
+    include vhost/*.conf;
 }' > /usr/local/nginx-1.12.2/conf/nginx.conf
 
-echo 'server { \
-    listen 80; \
-    server_name localhost; \
-    listen 443 ssl; \
-    ssl_certificate cert.pem; \
-    ssl_certificate_key cert.key; \
-    charset utf-8; \
-    access_log  /data/logs/default.access.log  main; \
-    error_log  /data/logs/default.error.log; \
-    root /data/webroot; \
-    autoindex on; \
-    location / { \
-            index index.html index.php; \
-            try_files $uri $uri/ /index.php?$args; \
-    } \
-    location ~ \.php$ { \
-        fastcgi_pass 127.0.0.1:7113; \
-        fastcgi_index index.php; \
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; \
-        include fastcgi_params; \
-    } \
+echo 'server {
+    listen 80;
+    server_name localhost;
+    listen 443 ssl;
+    ssl_certificate cert.pem;
+    ssl_certificate_key cert.key;
+    charset utf-8;
+    access_log  /data/logs/default.access.log  main;
+    error_log  /data/logs/default.error.log;
+    root /data/webroot;
+    autoindex on;
+    location / {
+            index index.html index.php;
+            try_files $uri $uri/ /index.php?$args;
+    }
+    location ~ \.php$ {
+        fastcgi_pass 127.0.0.1:7113;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
 }'  > /usr/local/nginx-1.12.2/conf/vhost/default.conf
 
-echo '[program:nginx] \
-command=/usr/local/nginx-1.12.2/sbin/nginx -g "daemon off;" -c /usr/local/nginx-1.12.2/conf/nginx.conf \
+echo '[program:nginx]
+command=/usr/local/nginx-1.12.2/sbin/nginx -g "daemon off;" -c /usr/local/nginx-1.12.2/conf/nginx.conf
 ' > /etc/supervisord.d/nginx.ini
