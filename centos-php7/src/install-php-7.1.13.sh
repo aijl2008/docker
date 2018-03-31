@@ -103,4 +103,4 @@ request_slowlog_timeout = 1
 echo '
 [program:fpm-7]
 command=/usr/local/php-7.1.13/sbin/php-fpm -F -y /usr/local/php-7.1.13/etc/php-fpm.conf
-' > /etc/supervisor/conf.d/fpm-7.conf
+' > /etc/supervisord.d/fpm-7.conf

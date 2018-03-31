@@ -1,10 +1,6 @@
 #!/bin/bash
 set -e
 
-/usr/sbin/groupadd -f -g 510 php-fpm
-/usr/sbin/useradd -m -u 510 -g 510 php-fpm
-mkdir -p /data/webroot/runtimes
-chown php-fpm:php-fpm /data/webroot/runtimes
 mkdir -p /data/src
 cd /data/src
 wget http://cn.php.net/distributions/php-5.4.43.tar.gz
@@ -71,6 +67,8 @@ daemonize = no
 include=php-fpm.d/*.conf
 ' > /usr/local/php-5.4.43/etc/php-fpm.conf
 
+mkdir /usr/local/php-5.4.43/etc/php-fpm.d
+
 echo '
 [pool-1]
 user = php-fpm
@@ -104,4 +102,4 @@ request_slowlog_timeout = 1
 echo '
 [program:fpm-7]
 command=/usr/local/php-5.4.43/sbin/php-fpm -F -y /usr/local/php-5.4.43/etc/php-fpm.conf
-' > /etc/supervisor/conf.d/fpm-7.conf
+' > /etc/supervisor/conf.d/fpm-5.conf
