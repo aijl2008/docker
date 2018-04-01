@@ -1,32 +1,73 @@
+[TOC]
+
 # Build
+
+## Build ubuntu 16.04
+
 ```
 docker build \
     -t docker.artron.net:5000/ubuntu \
     ubuntu
+```
+
+## Build ubuntu 16.04 && nginx 1.12.2
+
+```
 docker build \
     -t docker.artron.net:5000/ubuntu-nginx \
     ubuntu-nginx   
+```
+
+## Build ubuntu 16.04 && nginx 1.12.2 && php 7.1.13
+
+```
 docker build \
     -t docker.artron.net:5000/ubuntu-nginx-php7 \
     ubuntu-nginx-php7
+```
+
+## Build ubuntu 16.04 && nginx 1.12.2  && php 7.1.13 && php 5.4.43
+
+```
 docker build \
     -t docker.artron.net:5000/ubuntu-nginx-php7-php5 \
     ubuntu-nginx-php7-php5 
+```
+
+## Build centos 7
+
+```
 docker build \
     -t docker.artron.net:5000/centos \
     centos
+```
+
+## Build centos 7 && nginx 1.12.2
+
+```
 docker build \
     -t docker.artron.net:5000/centos-nginx \
     centos-nginx   
+```
+
+## Build centos 7 && nginx 1.12.2 && php 7.1.13
+
+```
 docker build \
     -t docker.artron.net:5000/centos-nginx-php7 \
     centos-nginx-php7
+```
+
+## Build centos 7 && nginx 1.12.2 && php 7.1.13
+
+```
 docker build \
     -t docker.artron.net:5000/centos-nginx-php7-php5 \
     centos-nginx-php7-php5    
 ```
 
 ## Biuld mysql 5.7
+
 ```
 docker build \
   -t docker.artron.net:5000/mysql \
@@ -47,9 +88,8 @@ docker build \
   mongo
 ```
 
-
-
 # run
+
 ```
 docker run -d --name=ubuntu \
     -p 127.0.0.1:9999:9999 \
@@ -97,4 +137,9 @@ docker run \
     -v /data/docker/redis/:/data \
     -d \
     artron/redis:3.2 redis-server --appendonly yes
+```
+
+change to your ipaddress:
+```
+sed "s/127.0.0.1/your ipaddress/g" readme.md
 ```
