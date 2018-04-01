@@ -161,17 +161,25 @@ docker run -d --name=centos-nginx-php7-php5 \
 
 ```
 docker run -d --name mysql \
+    -e MYSQL_ROOT_PASSWORD=123456
     -p 127.0.0.1:3306:3306
-    -v /data/container/my-container/mysql/:/var/lib/mysql \
+    -v /data/container/my-container/mysql:/var/lib/mysql \
     docker.artron.net:5000/mysql
 ```
+
+The MySQL Server log is available through Docker’s container log:
+
+```
+docker logs mysql
+```
+
 
 ## start redis
 
 ```
 docker run -d --name redis \
     -p 127.0.0.1:6379:6379
-    -v /data/container/my-container/redis/:/data \
+    -v /data/container/my-container/redis:/data \
     docker.artron.net:5000/redis redis-server --appendonly yes
 ```
 
@@ -180,7 +188,7 @@ docker run -d --name redis \
 ```
 docker run -d --name redis \
     -p 127.0.0.1:27017:27017
-    -v /data/container/my-container/mongo/:/data \
+    -v /data/container/my-container/mongo:/data/db \
     docker.artron.net:5000/mongo
 ```
 
