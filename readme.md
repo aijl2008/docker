@@ -88,58 +88,106 @@ docker build \
   mongo
 ```
 
-# run
+# usage
+
+## start ubuntu
 
 ```
 docker run -d --name=ubuntu \
     -p 127.0.0.1:9999:9999 \
     -p 127.0.0.1:4501:22 \
     docker.artron.net:5000/ubuntu 
-docker run -d --name=ubuntu-nginx \
-    -p 127.0.0.1:9999:9999 \
-    -p 127.0.0.1:4501:22 \
-    -p 127.0.0.1:80:80 \
-    -p 127.0.0.1:443:443 \
-    docker.artron.net:5000/ubuntu-nginx 
+```
+
+## start ubuntu-nginx-php7
+
+```
 docker run -d --name=ubuntu-nginx-php7 \
     -p 127.0.0.1:9999:9999 \
     -p 127.0.0.1:4501:22 \
     -p 127.0.0.1:80:80 \
     -p 127.0.0.1:443:443 \
-    docker.artron.net:5000/ubuntu-nginx-php7    
-ssh root@127.0.0.1 -p 4501
+    -v /data/container/my-container/webroot:/data/webroot
+    docker.artron.net:5000/ubuntu-nginx-php7
 ```
+
+## start ubuntu-nginx-php7-php5
+
+```
+docker run -d --name=ubuntu-nginx-php7-php5 \
+    -p 127.0.0.1:9999:9999 \
+    -p 127.0.0.1:4501:22 \
+    -p 127.0.0.1:80:80 \
+    -p 127.0.0.1:443:443 \
+    -v /data/container/my-container/webroot:/data/webroot
+    docker.artron.net:5000/ubuntu-nginx-php7-php5
+```
+
+
+## start centos
 
 ```
 docker run -d --name=centos \
     -p 127.0.0.1:9999:9999 \
     -p 127.0.0.1:4501:22 \
-    docker.artron.net:5000/centos 
-docker run -d --name=centos-nginx \
-    -p 127.0.0.1:9999:9999 \
-    -p 127.0.0.1:4501:22 \
-    -p 127.0.0.1:80:80 \
-    -p 127.0.0.1:443:443 \
-    docker.artron.net:5000/centos-nginx 
+    docker.artron.net:5000/centos
+```
+
+## start centos-nginx-php7
+
+```
 docker run -d --name=centos-nginx-php7 \
     -p 127.0.0.1:9999:9999 \
     -p 127.0.0.1:4501:22 \
     -p 127.0.0.1:80:80 \
     -p 127.0.0.1:443:443 \
-    docker.artron.net:5000/centos-nginx-php7    
-ssh root@127.0.0.1 -p 4501
+    -v /data/container/my-container/webroot:/data/webroot
+    docker.artron.net:5000/centos-nginx-php7
 ```
 
+## start centos-nginx-php7-php5
+
 ```
-sudo docker rm redis --force
-docker run \
-    --name redis \
-    -v /data/docker/redis/:/data \
-    -d \
-    artron/redis:3.2 redis-server --appendonly yes
+docker run -d --name=centos-nginx-php7-php5 \
+    -p 127.0.0.1:9999:9999 \
+    -p 127.0.0.1:4501:22 \
+    -p 127.0.0.1:80:80 \
+    -p 127.0.0.1:443:443 \
+    -v /data/container/my-container/webroot:/data/webroot
+    docker.artron.net:5000/centos-nginx-php7-php5
 ```
 
-change to your ipaddress:
+## start mysql
+
+```
+docker run -d --name mysql \
+    -p 127.0.0.1:3306:3306
+    -v /data/container/my-container/mysql/:/var/lib/mysql \
+    docker.artron.net:5000/mysql
+```
+
+## start redis
+
+```
+docker run -d --name redis \
+    -p 127.0.0.1:6379:6379
+    -v /data/container/my-container/redis/:/data \
+    docker.artron.net:5000/redis redis-server --appendonly yes
+```
+
+## start mongo
+
+```
+docker run -d --name redis \
+    -p 127.0.0.1:27017:27017
+    -v /data/container/my-container/mongo/:/data \
+    docker.artron.net:5000/mongo
+```
+
+
+
+
+# change to your ipaddress:
 ```
 sed "s/127.0.0.1/your ipaddress/g" readme.md
 ```
