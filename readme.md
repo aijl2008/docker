@@ -26,6 +26,29 @@ docker build \
     centos-nginx-php7-php5    
 ```
 
+## Biuld mysql 5.7
+```
+docker build \
+  -t docker.artron.net:5000/mysql \
+  mysql
+```
+
+## Biuld redis 3.2
+```
+docker build \
+  -t docker.artron.net:5000/redis \
+  redis
+```
+
+## Biuld mongo 3.6
+```
+docker build \
+  -t docker.artron.net:5000/mysql \
+  mongo
+```
+
+
+
 # run
 ```
 docker run -d --name=ubuntu \
@@ -65,4 +88,13 @@ docker run -d --name=centos-nginx-php7 \
     -p 127.0.0.1:443:443 \
     docker.artron.net:5000/centos-nginx-php7    
 ssh root@127.0.0.1 -p 4501
+```
+
+```
+sudo docker rm redis --force
+docker run \
+    --name redis \
+    -v /data/docker/redis/:/data \
+    -d \
+    artron/redis:3.2 redis-server --appendonly yes
 ```
