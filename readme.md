@@ -18,6 +18,14 @@ docker build \
     ubuntu-nginx   
 ```
 
+## Build ubuntu 16.04 && php 7.1.13
+
+```
+docker build \
+    -t docker.artron.net:5000/ubuntu-php7 \
+    ubuntu-php7   
+```
+
 ## Build ubuntu 16.04 && nginx 1.12.2 && php 7.1.13
 
 ```
@@ -48,6 +56,14 @@ docker build \
 docker build \
     -t docker.artron.net:5000/centos-nginx \
     centos-nginx   
+```
+
+## Build centos 7 && php7
+
+```
+docker build \
+    -t docker.artron.net:5000/centos-php7 \
+    centos-php7   
 ```
 
 ## Build centos 7 && nginx 1.12.2 && php 7.1.13
@@ -107,7 +123,7 @@ docker run -d --name=ubuntu-nginx-php7 \
     -p 127.0.0.1:4501:22 \
     -p 127.0.0.1:80:80 \
     -p 127.0.0.1:443:443 \
-    -v /data/container/my-container/webroot:/data/webroot
+    -v /data/container/my-container/webroot:/data/webroot \
     docker.artron.net:5000/ubuntu-nginx-php7
 ```
 
@@ -119,10 +135,9 @@ docker run -d --name=ubuntu-nginx-php7-php5 \
     -p 127.0.0.1:4501:22 \
     -p 127.0.0.1:80:80 \
     -p 127.0.0.1:443:443 \
-    -v /data/container/my-container/webroot:/data/webroot
+    -v /data/container/my-container/webroot:/data/webroot \
     docker.artron.net:5000/ubuntu-nginx-php7-php5
 ```
-
 
 ## start centos
 
@@ -141,7 +156,7 @@ docker run -d --name=centos-nginx-php7 \
     -p 127.0.0.1:4501:22 \
     -p 127.0.0.1:80:80 \
     -p 127.0.0.1:443:443 \
-    -v /data/container/my-container/webroot:/data/webroot
+    -v /data/container/my-container/webroot:/data/webroot \
     docker.artron.net:5000/centos-nginx-php7
 ```
 
@@ -153,7 +168,7 @@ docker run -d --name=centos-nginx-php7-php5 \
     -p 127.0.0.1:4501:22 \
     -p 127.0.0.1:80:80 \
     -p 127.0.0.1:443:443 \
-    -v /data/container/my-container/webroot:/data/webroot
+    -v /data/container/my-container/webroot:/data/webroot \
     docker.artron.net:5000/centos-nginx-php7-php5
 ```
 
