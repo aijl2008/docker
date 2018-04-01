@@ -67,7 +67,7 @@ echo '
 error_log = /data/logs/php/php-7.1.13/fpm_errors.log
 process.max = 5
 daemonize = no
-include=php-fpm.d/*.conf
+include=etc/php-fpm.d/*.conf
 ' > /usr/local/php-7.1.13/etc/php-fpm.conf
 
 echo '

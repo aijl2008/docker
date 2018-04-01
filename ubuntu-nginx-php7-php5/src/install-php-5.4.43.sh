@@ -64,7 +64,7 @@ echo '
 error_log = /data/logs/php/php-5.4.43/fpm_errors.log
 process.max = 5
 daemonize = no
-include=php-fpm.d/*.conf
+include=etc/php-fpm.d/*.conf
 ' > /usr/local/php-5.4.43/etc/php-fpm.conf
 
 mkdir /usr/local/php-5.4.43/etc/php-fpm.d
@@ -100,6 +100,6 @@ request_slowlog_timeout = 1
 ' > /usr/local/php-5.4.43/etc/php-fpm.d/pool-2.conf
 
 echo '
-[program:fpm-7]
+[program:fpm-5]
 command=/usr/local/php-5.4.43/sbin/php-fpm -F -y /usr/local/php-5.4.43/etc/php-fpm.conf
 ' > /etc/supervisor/conf.d/fpm-5.conf

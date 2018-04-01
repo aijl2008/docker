@@ -1,6 +1,9 @@
 FROM ubuntu:16.04
 MAINTAINER Jerry Ai <awz@awz.cn>
 
+ENV LANG=zh_CN.UTF-8
+ENV LC_ALL=zh_CN.UTF-8
+
 COPY src /data/src
 
 RUN sh /data/src/update.sh
