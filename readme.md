@@ -161,7 +161,7 @@ docker run -d --name=centos-nginx-php7-php5 \
 
 ```
 docker run -d --name mysql \
-    -e MYSQL_ROOT_PASSWORD=123456
+    -e MYSQL_ROOT_PASSWORD=123456 \
     -p 127.0.0.1:3306:3306 \
     -v /data/container/my-container/mysql:/var/lib/mysql \
     docker.artron.net:5000/mysql
