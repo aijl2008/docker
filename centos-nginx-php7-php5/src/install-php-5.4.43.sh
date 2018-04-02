@@ -68,11 +68,10 @@ include=etc/php-fpm.d/*.conf
 
 mkdir /usr/local/php-5.4.43/etc/php-fpm.d
 
-echo '
-[pool-1]
+echo '[pool-1]
 user = php-fpm
 group = php-fpm
-listen = 127.0.0.1:7113
+listen = 127.0.0.1:5443
 pm = static
 pm.max_children = 5
 pm.start_servers = 2
@@ -83,11 +82,10 @@ slowlog = /data/logs/php/php-5.4.43/$pool.log.slow
 request_slowlog_timeout = 1
 ' > /usr/local/php-5.4.43/etc/php-fpm.d/pool-1.conf
 
-echo '
-[pool-2]
+echo '[pool-2]
 user = php-fpm
 group = php-fpm
-listen = 127.0.0.1:7114
+listen = 127.0.0.1:5442
 pm = static
 pm.max_children = 5
 pm.start_servers = 2
@@ -98,7 +96,6 @@ slowlog = /data/logs/php/php-5.4.43/$pool.log.slow
 request_slowlog_timeout = 1
 ' > /usr/local/php-5.4.43/etc/php-fpm.d/pool-2.conf
 
-echo '
-[program:fpm-5]
+echo '[program:fpm-5]
 command=/usr/local/php-5.4.43/sbin/php-fpm -F -y /usr/local/php-5.4.43/etc/php-fpm.conf
 ' > /etc/supervisord.d/fpm-5.ini

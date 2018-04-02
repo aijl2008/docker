@@ -70,8 +70,7 @@ daemonize = no
 include=etc/php-fpm.d/*.conf
 ' > /usr/local/php-7.1.13/etc/php-fpm.conf
 
-echo '
-[pool-1]
+echo '[pool-1]
 user = php-fpm
 group = php-fpm
 listen = 127.0.0.1:7113
@@ -85,8 +84,7 @@ slowlog = /data/logs/php/php-7.1.13/$pool.log.slow
 request_slowlog_timeout = 1
 ' > /usr/local/php-7.1.13/etc/php-fpm.d/pool-1.conf
 
-echo '
-[pool-2]
+echo '[pool-2]
 user = php-fpm
 group = php-fpm
 listen = 127.0.0.1:7114
@@ -100,7 +98,6 @@ slowlog = /data/logs/php/php-7.1.13/$pool.log.slow
 request_slowlog_timeout = 1
 ' > /usr/local/php-7.1.13/etc/php-fpm.d/pool-2.conf
 
-echo '
-[program:fpm-7]
+echo '[program:fpm-7]
 command=/usr/local/php-7.1.13/sbin/php-fpm -F -y /usr/local/php-7.1.13/etc/php-fpm.conf
 ' > /etc/supervisord.d/fpm-7.ini
