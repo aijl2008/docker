@@ -21,6 +21,8 @@ cd php-5.4.43
   --enable-calendar \
   --with-curl \
   --enable-exif \
+  —-with-jpeg-dir \
+  --with-freetype-dir \
   --with-gd \
   --enable-gd-native-ttf \
   --with-gettext \
