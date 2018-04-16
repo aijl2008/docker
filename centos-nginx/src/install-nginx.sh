@@ -45,7 +45,7 @@ mkdir -p /usr/local/nginx-1.12.2/conf/vhost
 
 
 echo 'user www-data;
-worker_processes  1;
+worker_processes  2;
 error_log /data/logs/error.log;
 pid /data/logs/nginx.pid;
 events {
@@ -53,6 +53,8 @@ events {
 }
 http {
     include mime.types;
+    client_max_body_size 20m;
+    server_names_hash_bucket_size 512;
     default_type  application/octet-stream;
     log_format  main  $host $remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" "$http_x_forwarded_for";
     access_log  /data/logs/access.log  main;
@@ -66,8 +68,8 @@ echo 'server {
     listen 80;
     server_name localhost;
     listen 443 ssl;
-    ssl_certificate cert.pem;
-    ssl_certificate_key cert.key;
+    ssl_certificate ssl/cert.pem;
+    ssl_certificate_key ssl/cert.key;
     charset utf-8;
     access_log  /data/logs/default.access.log  main;
     error_log  /data/logs/default.error.log;
