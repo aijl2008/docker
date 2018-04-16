@@ -61,7 +61,7 @@ mkdir -p /data/logs/php/php-5.4.43
 echo '
 [global]
 error_log = /data/logs/php/php-5.4.43/fpm_errors.log
-process.max = 5
+process.max = 128
 daemonize = no
 include=etc/php-fpm.d/*.conf
 ' > /usr/local/php-5.4.43/etc/php-fpm.conf
