@@ -42,12 +42,13 @@ cd nginx-1.12.2
     --with-stream_ssl_preread_module
 make && make install
 mkdir -p /usr/local/nginx-1.12.2/conf/vhost
+mkdir -p /data/logs/nginx
 
 
 echo 'user www-data;
 worker_processes  2;
-error_log /data/logs/error.log;
-pid /data/logs/nginx.pid;
+error_log /data/logs/nginx/error.log;
+pid /data/logs/nginx/nginx.pid;
 events {
     worker_connections  1024;
 }
@@ -57,7 +58,7 @@ http {
     server_names_hash_bucket_size 512;
     default_type  application/octet-stream;
     log_format  main  $host $remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" "$http_x_forwarded_for";
-    access_log  /data/logs/access.log  main;
+    access_log  /data/logs/nginx/access.log  main;
     sendfile        on;
     keepalive_timeout  65;
     gzip  on;
@@ -71,8 +72,8 @@ echo 'server {
     ssl_certificate ssl/cert.pem;
     ssl_certificate_key ssl/cert.key;
     charset utf-8;
-    access_log  /data/logs/default.access.log  main;
-    error_log  /data/logs/default.error.log;
+    access_log  /data/logs/nginx/default.access.log  main;
+    error_log  /data/logs/nginx/default.error.log;
     root /data/webroot;
     autoindex on;
     location / {
