@@ -7,7 +7,7 @@ mkdir -p /data/webroot/runtimes
 chown php-fpm:php-fpm /data/webroot/runtimes
 mkdir -p /data/src
 cd /data/src
-wget http://cn.php.net/distributions/php-7.1.13.tar.gz
+wget -nv http://cn.php.net/distributions/php-7.1.13.tar.gz
 tar -zxvf php-7.1.13.tar.gz
 cd php-7.1.13
 
@@ -25,6 +25,8 @@ cd php-7.1.13
   --enable-calendar \
   --with-curl \
   --enable-exif \
+  --with-jpeg-dir \
+  --with-freetype-dir \
   --with-gd \
   --enable-gd-native-ttf \
   --with-gettext \

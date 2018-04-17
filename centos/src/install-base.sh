@@ -14,6 +14,7 @@ yum install -y libicu-devel
 yum install -y libxslt-devel
 yum install -y libmcrypt-devel
 yum install -y libpng-devel
+yum install -y libjpeg-devel
 yum install -y libssh2-devel
 yum install -y kde-l10n-Chinese
 yum reinstall -y glibc-common
