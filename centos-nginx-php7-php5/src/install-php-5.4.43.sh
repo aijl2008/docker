@@ -3,7 +3,7 @@ set -e
 
 mkdir -p /data/src
 cd /data/src
-wget http://cn.php.net/distributions/php-5.4.43.tar.gz
+wget -nv http://cn.php.net/distributions/php-5.4.43.tar.gz
 tar -zxvf php-5.4.43.tar.gz
 cd php-5.4.43
 
@@ -63,7 +63,7 @@ mkdir -p /data/logs/php/php-5.4.43
 echo '
 [global]
 error_log = /data/logs/php/php-5.4.43/fpm_errors.log
-process.max = 5
+process.max = 128
 daemonize = no
 include=etc/php-fpm.d/*.conf
 ' > /usr/local/php-5.4.43/etc/php-fpm.conf

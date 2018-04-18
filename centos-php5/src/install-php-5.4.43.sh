@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-
 mkdir -p /data/src
 cd /data/src
 wget -nv http://cn.php.net/distributions/php-5.4.43.tar.gz
@@ -21,6 +20,8 @@ cd php-5.4.43
   --enable-calendar \
   --with-curl \
   --enable-exif \
+  --with-jpeg-dir \
+  --with-freetype-dir \
   --with-gd \
   --enable-gd-native-ttf \
   --with-gettext \

@@ -7,7 +7,7 @@ mkdir -p /data/logs/nginx
 su www-data -c "echo '<?php phpinfo();?>' > /data/webroot/phpinfo.php"
 
 mkdir -p /data/src
-cd /data/src && wget http://nginx.org/download/nginx-1.12.2.tar.gz
+cd /data/src && wget -nv http://nginx.org/download/nginx-1.12.2.tar.gz
 tar -zxvf nginx-1.12.2.tar.gz
 cd nginx-1.12.2
 ./configure \

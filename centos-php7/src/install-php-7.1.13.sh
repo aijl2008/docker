@@ -7,7 +7,7 @@ mkdir -p /data/webroot/runtimes
 chown php-fpm:php-fpm /data/webroot/runtimes
 mkdir -p /data/src
 cd /data/src
-wget -q http://cn.php.net/distributions/php-7.1.13.tar.gz
+wget -nv http://cn.php.net/distributions/php-7.1.13.tar.gz
 tar -zxvf php-7.1.13.tar.gz
 cd php-7.1.13
 
@@ -67,7 +67,7 @@ mkdir -p /data/logs/php/php-7.1.13
 echo '
 [global]
 error_log = /data/logs/php/php-7.1.13/fpm_errors.log
-process.max = 5
+process.max = 128
 daemonize = no
 include=etc/php-fpm.d/*.conf
 ' > /usr/local/php-7.1.13/etc/php-fpm.conf
