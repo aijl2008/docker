@@ -12,3 +12,5 @@ make
 make install
 echo "extension=redis.so" >> /usr/local/php-5.4.43/lib/php.ini
 
+cd /data/src 
+rm -rf redis-3.1.6
