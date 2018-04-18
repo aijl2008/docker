@@ -57,7 +57,10 @@ http {
     client_max_body_size 20m;
     server_names_hash_bucket_size 512;
     default_type  application/octet-stream;
-    log_format  main  $host $remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" "$http_x_forwarded_for";
+    log_format  main  \'$host $remote_addr - $remote_user [$time_local] "$request" \'
+                      \'$request_time $upstream_response_time \'
+                      \'$status $body_bytes_sent "$http_referer" \'
+                      \'"$http_user_agent" "$http_x_forwarded_for"\';
     access_log  /data/logs/nginx/access.log  main;
     sendfile        on;
     keepalive_timeout  65;
@@ -79,6 +82,10 @@ echo 'server {
     location / {
             index index.html index.php;
             try_files $uri $uri/ /index.php?$args;
+    }
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|ico|js|css)$ {
+         expires      30d;
+         access_log off;
     }
     location ~ \.php$ {
         fastcgi_pass 127.0.0.1:7113;
