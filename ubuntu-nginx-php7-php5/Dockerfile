@@ -1,4 +1,4 @@
-FROM docker.artron.net:5000/ubuntu-nginx-php7
+FROM docker.artron.net/ubuntu-nginx-php7
 
 COPY src /data/src
 RUN sh /data/src/install-php-5.4.43.sh

@@ -1,4 +1,4 @@
-FROM docker.artron.net:5000/ubuntu-php7
+FROM docker.artron.net/ubuntu-php7
 MAINTAINER Jerry Ai <awz@awz.cn>
 
 COPY src /data/src

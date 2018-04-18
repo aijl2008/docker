@@ -1,21 +1,36 @@
 #!/bin/bash
 set -e
-yum install -y gcc automake autoconf libtool make gcc-c++
-yum install -y net-tools wget httpd-tools \
-yum install -y initscripts
-yum install -y openssl-devel
-yum install -y tree
-yum install -y curl-devel
-yum install -y freetype-devel
-yum install -y readline-devel
-yum install -y libtidy-devel
-yum install -y libxml2-devel
-yum install -y libicu-devel
-yum install -y libxslt-devel
-yum install -y libmcrypt-devel
-yum install -y libpng-devel
-yum install -y libssh2-devel
-yum install -y kde-l10n-Chinese
-yum reinstall -y glibc-common
+
+packages=(gcc \
+automake \
+autoconf \
+libtool \
+make gcc-c++ \
+net-tools \
+wget \
+tree \
+httpd-tools \
+initscripts \
+openssl-devel \
+curl-devel \
+freetype-devel \
+readline-devel \
+libxml2-devel \
+libicu-devel \
+libxslt-devel \
+libmcrypt-devel \
+libpng-devel \
+libssh2-devel \
+libtidy-devel \
+kde-l10n-Chinese \
+glibc-common \
+)
+for var in ${packages[@]};
+do
+    echo "安装 $var 包"
+    yum install -y $var
+done
+echo "定义本地语言环境"
 localedef -c -f UTF-8 -i zh_CN zh_CN.utf8
+echo "修改时区"
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime

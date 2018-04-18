@@ -6,7 +6,7 @@
 
 ```
 docker build \
-    -t docker.artron.net:5000/ubuntu \
+    -t docker.artron.net/ubuntu \
     ubuntu
 ```
 
@@ -14,7 +14,7 @@ docker build \
 
 ```
 docker build \
-    -t docker.artron.net:5000/ubuntu-nginx \
+    -t docker.artron.net/ubuntu-nginx \
     ubuntu-nginx   
 ```
 
@@ -22,7 +22,7 @@ docker build \
 
 ```
 docker build \
-    -t docker.artron.net:5000/ubuntu-php7 \
+    -t docker.artron.net/ubuntu-php7 \
     ubuntu-php7   
 ```
 
@@ -30,7 +30,7 @@ docker build \
 
 ```
 docker build \
-    -t docker.artron.net:5000/ubuntu-nginx-php7 \
+    -t docker.artron.net/ubuntu-nginx-php7 \
     ubuntu-nginx-php7
 ```
 
@@ -38,7 +38,7 @@ docker build \
 
 ```
 docker build \
-    -t docker.artron.net:5000/ubuntu-nginx-php7-php5 \
+    -t docker.artron.net/ubuntu-nginx-php7-php5 \
     ubuntu-nginx-php7-php5 
 ```
 
@@ -46,7 +46,7 @@ docker build \
 
 ```
 docker build \
-    -t docker.artron.net:5000/centos \
+    -t docker.artron.net/centos \
     centos
 ```
 
@@ -54,7 +54,7 @@ docker build \
 
 ```
 docker build \
-    -t docker.artron.net:5000/centos-nginx \
+    -t docker.artron.net/centos-nginx \
     centos-nginx   
 ```
 
@@ -62,7 +62,7 @@ docker build \
 
 ```
 docker build \
-    -t docker.artron.net:5000/centos-php7 \
+    -t docker.artron.net/centos-php7 \
     centos-php7   
 ```
 
@@ -70,7 +70,7 @@ docker build \
 
 ```
 docker build \
-    -t docker.artron.net:5000/centos-nginx-php7 \
+    -t docker.artron.net/centos-nginx-php7 \
     centos-nginx-php7
 ```
 
@@ -78,7 +78,7 @@ docker build \
 
 ```
 docker build \
-    -t docker.artron.net:5000/centos-nginx-php7-php5 \
+    -t docker.artron.net/centos-nginx-php7-php5 \
     centos-nginx-php7-php5    
 ```
 
@@ -86,21 +86,21 @@ docker build \
 
 ```
 docker build \
-  -t docker.artron.net:5000/mysql \
+  -t docker.artron.net/mysql \
   mysql
 ```
 
 ## Biuld redis 3.2
 ```
 docker build \
-  -t docker.artron.net:5000/redis \
+  -t docker.artron.net/redis \
   redis
 ```
 
 ## Biuld mongo 3.6
 ```
 docker build \
-  -t docker.artron.net:5000/mysql \
+  -t docker.artron.net/mysql \
   mongo
 ```
 
@@ -112,7 +112,7 @@ docker build \
 docker run -d --name=ubuntu \
     -p 127.0.0.1:9999:9999 \
     -p 127.0.0.1:4501:22 \
-    docker.artron.net:5000/ubuntu 
+    docker.artron.net/ubuntu
 ```
 
 ## start ubuntu-nginx-php7
@@ -124,7 +124,7 @@ docker run -d --name=ubuntu-nginx-php7 \
     -p 127.0.0.1:80:80 \
     -p 127.0.0.1:443:443 \
     -v /data/container/my-container/webroot:/data/webroot \
-    docker.artron.net:5000/ubuntu-nginx-php7
+    docker.artron.net/ubuntu-nginx-php7
 ```
 
 ## start ubuntu-nginx-php7-php5
@@ -136,7 +136,7 @@ docker run -d --name=ubuntu-nginx-php7-php5 \
     -p 127.0.0.1:80:80 \
     -p 127.0.0.1:443:443 \
     -v /data/container/my-container/webroot:/data/webroot \
-    docker.artron.net:5000/ubuntu-nginx-php7-php5
+    docker.artron.net/ubuntu-nginx-php7-php5
 ```
 
 ## start centos
@@ -145,7 +145,7 @@ docker run -d --name=ubuntu-nginx-php7-php5 \
 docker run -d --name=centos \
     -p 127.0.0.1:9999:9999 \
     -p 127.0.0.1:4501:22 \
-    docker.artron.net:5000/centos
+    docker.artron.net/centos
 ```
 
 ## start centos-nginx-php7
@@ -157,7 +157,7 @@ docker run -d --name=centos-nginx-php7 \
     -p 127.0.0.1:80:80 \
     -p 127.0.0.1:443:443 \
     -v /data/container/my-container/webroot:/data/webroot \
-    docker.artron.net:5000/centos-nginx-php7
+    docker.artron.net/centos-nginx-php7
 ```
 
 ## start centos-nginx-php7-php5
@@ -169,7 +169,7 @@ docker run -d --name=centos-nginx-php7-php5 \
     -p 127.0.0.1:80:80 \
     -p 127.0.0.1:443:443 \
     -v /data/container/my-container/webroot:/data/webroot \
-    docker.artron.net:5000/centos-nginx-php7-php5
+    docker.artron.net/centos-nginx-php7-php5
 ```
 
 ## start mysql
@@ -179,7 +179,7 @@ docker run -d --name mysql \
     -e MYSQL_ROOT_PASSWORD=123456 \
     -p 127.0.0.1:3306:3306 \
     -v /data/container/my-container/mysql:/var/lib/mysql \
-    docker.artron.net:5000/mysql
+    docker.artron.net/mysql
 ```
 
 The MySQL Server log is available through Docker’s container log:
@@ -195,7 +195,7 @@ docker logs mysql
 docker run -d --name redis \
     -p 127.0.0.1:6379:6379 \
     -v /data/container/my-container/redis:/data \
-    docker.artron.net:5000/redis redis-server --appendonly yes
+    docker.artron.net/redis redis-server --appendonly yes
 ```
 
 ## start mongo
@@ -204,7 +204,7 @@ docker run -d --name redis \
 docker run -d --name redis \
     -p 127.0.0.1:27017:27017 \
     -v /data/container/my-container/mongo:/data/db \
-    docker.artron.net:5000/mongo
+    docker.artron.net/mongo
 ```
 
 

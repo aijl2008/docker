@@ -1,4 +1,4 @@
-FROM docker.artron.net:5000/centos-php7
+FROM docker.artron.net/centos-php7
 MAINTAINER Jerry Ai <awz@awz.cn>
 
 COPY src /data/src
