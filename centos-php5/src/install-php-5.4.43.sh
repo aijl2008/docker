@@ -58,12 +58,11 @@ sed -i "s/error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/error_reporting = 
 sed -i "s/;error_log = php_errors.log/error_log = \/data\/logs\/php\/php-5.4.43\/php_errors.log/" /usr/local/php-5.4.43/lib/php.ini
 
 mkdir -p /data/logs/php/php-5.4.43
-ln -s /usr/local/php-7.1.13/bin/* /usr/local/bin
 
 echo '
 [global]
 error_log = /data/logs/php/php-5.4.43/fpm_errors.log
-process.max = 5
+process.max = 128
 daemonize = no
 include=etc/php-fpm.d/*.conf
 ' > /usr/local/php-5.4.43/etc/php-fpm.conf
@@ -87,7 +86,7 @@ request_slowlog_timeout = 1
 echo '[pool-2]
 user = php-fpm
 group = php-fpm
-listen = 127.0.0.1:5442
+listen = 127.0.0.1:5444
 pm = static
 pm.max_children = 5
 pm.start_servers = 2

@@ -87,7 +87,7 @@ request_slowlog_timeout = 1
 echo '[pool-2]
 user = php-fpm
 group = php-fpm
-listen = 127.0.0.1:5442
+listen = 127.0.0.1:5444
 pm = static
 pm.max_children = 5
 pm.start_servers = 2

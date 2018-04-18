@@ -1,4 +1,5 @@
 FROM docker.artron.net/centos-nginx-php7
+MAINTAINER Jerry Ai <awz@awz.cn>
 
 COPY src /data/src
 RUN sh /data/src/install-php-5.4.43.sh
