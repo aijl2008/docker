@@ -26,6 +26,7 @@ cd php-7.1.13
   --with-curl \
   --enable-exif \
   --with-jpeg-dir \
+  --with-png-dir \
   --with-freetype-dir \
   --with-gd \
   --enable-gd-native-ttf \
