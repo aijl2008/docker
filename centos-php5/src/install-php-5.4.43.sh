@@ -21,6 +21,7 @@ cd php-5.4.43
   --with-curl \
   --enable-exif \
   --with-jpeg-dir \
+  --with-png-dir \  
   --with-freetype-dir \
   --with-gd \
   --enable-gd-native-ttf \
