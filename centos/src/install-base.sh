@@ -20,6 +20,7 @@ libicu-devel \
 libxslt-devel \
 libmcrypt-devel \
 libpng-devel \
+libjpeg-devel \
 libssh2-devel \
 libtidy-devel \
 kde-l10n-Chinese \
