@@ -13,3 +13,5 @@ make install
 echo "extension=mongodb.so" >> /usr/local/php-7.1.13/lib/php.ini
 
 
+cd /data/src 
+rm -rf mongodb-1.4.2

@@ -11,3 +11,5 @@ cd ssh2-1.1.2
 make 
 make install
 echo "extension=ssh2.so" >> /usr/local/php-7.1.13/lib/php.ini
+cd /data/src
+rm -rf ssh2-1.1.2
