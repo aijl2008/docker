@@ -1,4 +1,4 @@
-FROM docker.artron.net/centos-nginx-php7
+FROM aijl2008/centos-nginx-php7
 MAINTAINER Jerry Ai <awz@awz.cn>
 
 COPY src /data/src
