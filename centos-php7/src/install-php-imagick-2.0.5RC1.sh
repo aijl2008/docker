@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-yum install GraphicsMagick-dev
+yum install -y GraphicsMagick-devel
 cd /data/src 
 /usr/local/php-7.1.13/bin/pecl download gmagick-2.0.5RC1
 tar -zxvf gmagick-2.0.5RC1.tgz

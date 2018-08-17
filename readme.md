@@ -2,6 +2,9 @@
 
 # Build
 
+```
+cd docker
+```
 
 ## Build centos 7
 
