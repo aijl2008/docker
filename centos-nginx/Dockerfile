@@ -1,4 +1,4 @@
-FROM docker.artron.net/centos
+FROM aijl2008/centos
 MAINTAINER Jerry Ai <awz@awz.cn>
 
 COPY src /data/src

@@ -2,51 +2,12 @@
 
 # Build
 
-## Build ubuntu 16.04
-
-```
-docker build \
-    -t docker.artron.net/ubuntu \
-    ubuntu
-```
-
-## Build ubuntu 16.04 && nginx 1.12.2
-
-```
-docker build \
-    -t docker.artron.net/ubuntu-nginx \
-    ubuntu-nginx   
-```
-
-## Build ubuntu 16.04 && php 7.1.13
-
-```
-docker build \
-    -t docker.artron.net/ubuntu-php7 \
-    ubuntu-php7   
-```
-
-## Build ubuntu 16.04 && nginx 1.12.2 && php 7.1.13
-
-```
-docker build \
-    -t docker.artron.net/ubuntu-nginx-php7 \
-    ubuntu-nginx-php7
-```
-
-## Build ubuntu 16.04 && nginx 1.12.2  && php 7.1.13 && php 5.4.43
-
-```
-docker build \
-    -t docker.artron.net/ubuntu-nginx-php7-php5 \
-    ubuntu-nginx-php7-php5 
-```
 
 ## Build centos 7
 
 ```
 docker build \
-    -t docker.artron.net/centos \
+    -t aijl2008/centos \
     centos
 ```
 
@@ -54,7 +15,7 @@ docker build \
 
 ```
 docker build \
-    -t docker.artron.net/centos-nginx \
+    -t aijl2008/centos-nginx \
     centos-nginx   
 ```
 
@@ -62,7 +23,7 @@ docker build \
 
 ```
 docker build \
-    -t docker.artron.net/centos-php7 \
+    -t aijl2008/centos-php7 \
     centos-php7   
 ```
 
@@ -70,7 +31,7 @@ docker build \
 
 ```
 docker build \
-    -t docker.artron.net/centos-nginx-php7 \
+    -t aijl2008/centos-nginx-php7 \
     centos-nginx-php7
 ```
 
@@ -78,7 +39,7 @@ docker build \
 
 ```
 docker build \
-    -t docker.artron.net/centos-nginx-php7-php5 \
+    -t aijl2008/centos-nginx-php7-php5 \
     centos-nginx-php7-php5    
 ```
 
@@ -86,21 +47,21 @@ docker build \
 
 ```
 docker build \
-  -t docker.artron.net/mysql \
+  -t aijl2008/mysql \
   mysql
 ```
 
 ## Biuld redis 3.2
 ```
 docker build \
-  -t docker.artron.net/redis \
+  -t aijl2008/redis \
   redis
 ```
 
 ## Biuld mongo 3.6
 ```
 docker build \
-  -t docker.artron.net/mysql \
+  -t aijl2008/mysql \
   mongo
 ```
 
@@ -112,7 +73,7 @@ docker build \
 docker run -d --name=ubuntu \
     -p 127.0.0.1:9999:9999 \
     -p 127.0.0.1:4501:22 \
-    docker.artron.net/ubuntu
+    aijl2008/ubuntu
 ```
 
 ## start ubuntu-nginx-php7
@@ -124,7 +85,7 @@ docker run -d --name=ubuntu-nginx-php7 \
     -p 127.0.0.1:80:80 \
     -p 127.0.0.1:443:443 \
     -v /data/container/my-container/webroot:/data/webroot \
-    docker.artron.net/ubuntu-nginx-php7
+    aijl2008/ubuntu-nginx-php7
 ```
 
 ## start ubuntu-nginx-php7-php5
@@ -136,7 +97,7 @@ docker run -d --name=ubuntu-nginx-php7-php5 \
     -p 127.0.0.1:80:80 \
     -p 127.0.0.1:443:443 \
     -v /data/container/my-container/webroot:/data/webroot \
-    docker.artron.net/ubuntu-nginx-php7-php5
+    aijl2008/ubuntu-nginx-php7-php5
 ```
 
 ## start centos
@@ -145,7 +106,7 @@ docker run -d --name=ubuntu-nginx-php7-php5 \
 docker run -d --name=centos \
     -p 127.0.0.1:9999:9999 \
     -p 127.0.0.1:4501:22 \
-    docker.artron.net/centos
+    aijl2008/centos
 ```
 
 ## start centos-nginx-php7
@@ -157,7 +118,7 @@ docker run -d --name=centos-nginx-php7 \
     -p 127.0.0.1:80:80 \
     -p 127.0.0.1:443:443 \
     -v /data/container/my-container/webroot:/data/webroot \
-    docker.artron.net/centos-nginx-php7
+    aijl2008/centos-nginx-php7
 ```
 
 ## start centos-nginx-php7-php5
@@ -169,7 +130,7 @@ docker run -d --name=centos-nginx-php7-php5 \
     -p 127.0.0.1:80:80 \
     -p 127.0.0.1:443:443 \
     -v /data/container/my-container/webroot:/data/webroot \
-    docker.artron.net/centos-nginx-php7-php5
+    aijl2008/centos-nginx-php7-php5
 ```
 
 ## start mysql
@@ -179,7 +140,7 @@ docker run -d --name mysql \
     -e MYSQL_ROOT_PASSWORD=123456 \
     -p 127.0.0.1:3306:3306 \
     -v /data/container/my-container/mysql:/var/lib/mysql \
-    docker.artron.net/mysql
+    aijl2008/mysql
 ```
 
 The MySQL Server log is available through Docker’s container log:
@@ -195,7 +156,7 @@ docker logs mysql
 docker run -d --name redis \
     -p 127.0.0.1:6379:6379 \
     -v /data/container/my-container/redis:/data \
-    docker.artron.net/redis redis-server --appendonly yes
+    aijl2008/redis redis-server --appendonly yes
 ```
 
 ## start mongo
@@ -204,7 +165,7 @@ docker run -d --name redis \
 docker run -d --name redis \
     -p 127.0.0.1:27017:27017 \
     -v /data/container/my-container/mongo:/data/db \
-    docker.artron.net/mongo
+    aijl2008/mongo
 ```
 
 
