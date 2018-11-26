@@ -9,4 +9,3 @@ RUN apt update
 RUN apt install -y locales locales-all tzdata net-tools wget curl vim
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
