@@ -1,16 +1,18 @@
 ```
-sudo docker build -t aijl2008/centos-nginx-php7 .
+sudo docker build -t  aijl2008/centos-nginx-php7 .
 ```
 
-### 删除已存在
 ```
-sudo docker rm redis --force
+sudo docker rm centos-nginx-php7 --force
 ```
-### 启动
+
 ```
 docker run \
-    --name redis \
-    -v /data/docker/redis/:/data \
+    --name centos-nginx-php7 \
+    -v /data/docker/container/centos-nginx-php7:/data/webroot \
+    -p 0.0.0.0:9999:9999 \
+    -p 0.0.0.0:4501:22 \
+    -p 0.0.0.0:80:80 \
+    -p 0.0.0.0:443:443 \
     -d \
-    artron/redis:3.2 redis-server --appendonly yes
-```
+    aijl2008/centos-nginx-php7

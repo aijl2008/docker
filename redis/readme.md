@@ -9,7 +9,7 @@ sudo docker rm redis --force
 ```
 sudo docker run \
     --name redis \
-    -v /data/docker/redis/:/data \
+    -v /data/docker/container/redis/:/data \
     -d \
     aijl2008/redis redis_server --appendonly yes
 ```
