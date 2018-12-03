@@ -10,7 +10,7 @@ cd memcache-2.2.7
   --with-php-config=/usr/local/php-5.4.43/bin/php-config
 make 
 make install
-echo "extension=mongodb.so" >> /usr/local/php-5.4.43/lib/php.ini
+echo "extension=memcache.so" >> /usr/local/php-5.4.43/lib/php.ini
 
 cd /data/src 
 rm -rf memcache-2.2.7
