@@ -8,3 +8,4 @@ RUN tar -xvf node-v10.16.0-linux-x64.tar
 RUN ln -s /node-v10.16.0-linux-x64/bin/* /usr/local/bin/
 RUN chmod +x node-v10.16.0-linux-x64/bin/*
 RUN npm install pm2 -g --registry=https://registry.npm.taobao.org
+RUN ln -s /node-v10.16.0-linux-x64/bin/pm2
