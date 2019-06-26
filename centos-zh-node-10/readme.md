@@ -1,5 +1,5 @@
 ```
-sudo docker build -t  aijl2008/centos-zh-node .
+sudo docker build -t  aijl2008/centos-zh-node:10.16.0 .
 ```
 
 ```
@@ -7,8 +7,8 @@ sudo docker rm centos-zh-node --force
 ```
 
 ```
-docker run \
+sudo docker run \
     --name centos-zh-node \
     -it \
-    aijl2008/centos-zh-node \
+    aijl2008/centos-zh-node:10.16.0 \
     /bin/bash
